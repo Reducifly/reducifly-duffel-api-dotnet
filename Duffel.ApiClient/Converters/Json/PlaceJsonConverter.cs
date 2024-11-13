@@ -9,13 +9,25 @@ namespace Duffel.ApiClient.Converters.Json
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException("OffersResponseJsonConverter is a read-only converter");
+            serializer.Serialize(writer, value);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JObject jo = JObject.Load(reader);
             var placeType = (string)jo["type"]!;
+            //if placeType is null, figure out if it's a city or airport by checking if the airports property is present
+            if (placeType == null)
+            {
+                if (jo["airports"] != null)
+                {
+                    placeType = "city";
+                }
+                else
+                {
+                    placeType = "airport";
+                }
+            }
             Place result;
             
             switch(placeType?.ToLower())

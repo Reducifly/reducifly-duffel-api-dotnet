@@ -7,7 +7,8 @@ namespace Duffel.ApiClient.Converters.Json
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            //Default serialization is fine
+            serializer.Serialize(writer, value);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
@@ -15,7 +16,12 @@ namespace Duffel.ApiClient.Converters.Json
         {
             if (reader.Value == null) return TimeSpan.Zero;
             var duration = reader.Value.ToString();
-            return System.Xml.XmlConvert.ToTimeSpan(duration);
+            TimeSpan result;
+            if (TimeSpan.TryParse(duration, out result))
+            {
+                return result;
+            }
+            return TimeSpan.Zero;
         }
 
         public override bool CanConvert(Type objectType)

@@ -23,6 +23,7 @@ namespace Duffel.ApiClient
         public IOrderChanges OrderChanges { get; set; }
         public IOrderChangeOffers OrderChangeOffers { get; set; }
         public IOrderCancellations OrderCancellations { get; set; }
+        public IPlacesRequest PlacesRequest { get; set; }
 
         public DuffelApiClient(string accessToken)
         :this(new HttpClient(new HttpClientHandler {AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate}), accessToken)
@@ -61,6 +62,7 @@ namespace Duffel.ApiClient
             OrderChanges = new OrderChanges(_httpClient);
             OrderChangeOffers = new OrderChangeOffers(_httpClient);
             OrderCancellations = new OrderCancellations(_httpClient);
+            PlacesRequest = new PlacesRequest(_httpClient);
         }
     }
 }

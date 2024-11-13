@@ -86,7 +86,7 @@ namespace Duffel.ApiClient.Tests
 
             Check.That(offersResponse.Id).Equals("orq_0000AFANuVr4l0DI9G8Fk0");
             Check.That(offersResponse.IsLiveMode).IsFalse();
-            Check.That(offersResponse.CreatedAt).Equals(DateTime.Parse("2022-01-06T14:39:20.094701Z", CultureInfo.InvariantCulture));
+            Check.That(offersResponse.CreatedAt).Equals(DateTime.Parse("2022-01-06T14:39:20.099028Z", CultureInfo.InvariantCulture).ToUniversalTime());
 
             AssertSlicesDataCorrect(offersResponse.Slices!.ToList());
             AssertOffersDataCorrect(offersResponse.Offers!.ToList());
